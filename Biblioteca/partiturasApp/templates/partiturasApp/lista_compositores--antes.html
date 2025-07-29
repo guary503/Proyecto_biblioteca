@@ -1,0 +1,21 @@
+<!Doctype html>
+<html>
+    <head>
+        <title>Lista de Compositores</title>
+    </head>
+    <body>
+        <h1>Lista de Compositores</h1>
+        {% if compositores %}
+            <ul>
+                {% for comp in compositores%}
+                    <li>
+                        <a href = '{% url "detalle_compositor" comp.pk %}'>
+                            {{ comp.nombre }} {{ comp.apellido }}</a> - {{ comp.pais}}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No hay Compositores.</p>
+        {% endif %}
+    </body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{{ partitura.titulo }} </title>
+    </head>
+    <body>
+        <h1>{{ partitura.titulo | upper }}</h1>
+        <h2>Por: <a href='{% url "detalle_compositor" partitura.compositor.pk %}'>
+            {{ partitura.compositor }}
+        </h2></a>
+        <p><strong>
+                Genero: </strong>
+            {% if partitura.genero %}
+                {{ partitura.genero }}
+            {% else %}
+                Sin genero
+            {% endif %}
+        </p>
+        <p><strong>
+                Instrumento: </strong>{{ partitura.instrumento }}
+        </p>
+
+        {% if partitura.numero_opus %}
+            <p><strong>Opus: </strong>{{ partitura.numero_opus }}</p>
+        {% endif %}
+
+        
+        <a href='{% url "lista_partituras" %}'>
+            Volver a la lista de Partituras
+        </a>
+    </body>
+</html>
+

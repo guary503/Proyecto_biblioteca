@@ -1,0 +1,18 @@
+{% extends "partiturasApp/base.html" %} <!--con esta etiqueta heredamos de base.html toda la estructura html-->
+
+{% block title %}Listado de Todas las Partituras{% endblock title %}    <!--con la etiqueta definimos el block title en la base-->
+
+{% block content %} {# Definimos el contenido en la base #}
+    <h2>Aqui estan todas nuestras partituras</h2>
+    <hr>
+    <ul>
+        {% for p in partituras %}
+            <li>
+                <a href='{% url "detalle_partitura" p.pk %}'>{{ p.titulo }}</a>
+            </li>
+        {%empty%}
+            <li>No hay partituras en la biblioteca/</li>
+        {% endfor %}
+    </ul></hr>
+
+{% endblock content %}

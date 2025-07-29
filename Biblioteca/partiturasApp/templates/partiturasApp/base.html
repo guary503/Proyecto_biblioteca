@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Mi biblioteca de Partituras.{% endblock title %}</title>
+    </head>
+    <body>
+        <header>
+            <h1>
+                Mi biblioteca Digital.
+            </h1>
+            <nav>
+                <ul>
+                    <li><a href='{% url "lista_partituras" %}'>Lista de Partituras</a></li>
+                    <li><a href='{% url "lista_compositores" %}'>Lista de Compositores</a></li>
+                    <li><a href='{% url "crear_partitura" %}'>Crear Partitura</a></li>
+                    <li><a href='{% url "crear_compositor" %}'>Nuevo Compositor</a></li>
+                </ul>
+            </nav>
+        </header>
+        
+        <main>
+            {% block content %}
+            {% endblock content %}
+        </main>
+
+        <footer>
+            <hr>
+            <p>&copy; 2025 - Mi Proyecto de Partituras</p>
+            </hr>
+        </footer>
+    </body>
+</html>

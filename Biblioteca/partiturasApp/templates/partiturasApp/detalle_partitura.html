@@ -1,0 +1,29 @@
+{% extends "partiturasApp/base.html" %}
+
+{% block title %}{{ partitura.titulo }}{% endblock title %}
+
+{% block content %}
+    <h2>Detalles de la partitura {{ partitura.titulo }}</h2>
+
+    <p><strong>Compositor: </strong><a href='{% url "detalle_compositor" partitura.compositor.pk %}'>{{ partitura.compositor }}</a></p>
+    <p><strong>Genero: </strong>
+        {% if partitura.genero %}
+            {{ partitura.genero }}
+        {%else%} 
+            Sin Genero
+        {% endif %}
+    </p>
+    <p><strong>Instrumento: </strong>{{ partitura.instrumento }}</p>
+    {% if partitura.fecha_creacion_partitura %}
+        <p><strong>Fecha de creacion: </strong>{{ partitura.fecha_creacion_partitura }}</p>
+    {% endif %}
+    {% if partitura.editorial %}
+        <p><strong>Editorial: </strong>{{ partitura.editorial }}</p>
+    {% endif %}
+    {% if partitura.fecha_publicacion %}
+        <p><strong>Fecha de Publicacion: </strong>{{ partitura.fecha_publicacion }}</p>
+    {% endif %}
+    {% if partitura.numero_opus %}
+        <p><strong>Numero de Opus: </strong>{{ partitura.numero_opus }}</p>
+    {% endif %}
+{% endblock content %}

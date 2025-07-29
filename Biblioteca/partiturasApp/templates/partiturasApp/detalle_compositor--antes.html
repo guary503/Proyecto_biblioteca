@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{{ compositor.nombre }}</title>
+    </head>
+    <body>
+        <h1>{{ compositor.nombre }} - {{ compositor.apellido }}</h1>
+        <p>fecha de nacimiento: {{ compositor.fecha_de_nacimiento | date:'d/m/Y'}}</p>
+        <p>pais de origen: {{ compositor.pais }}</p>
+
+        <hr><h3>Partituras escritas</h3>
+        <ul>
+            {% for p in compositor.partituras.all %}
+                <li><a href = '{% url "detalle_partitura" p.pk %}'>{{ p.titulo }}</a></li>
+            {%empty%} 
+                <li>Este compositor aún no tiene partituras registradas en la biblioteca.</li>
+            {% endfor %} 
+        </ul>
+        </hr>
+        <hr></hr>
+        <a href= {% url "lista_compositores" %}>
+            Volver a la lista de Compositores
+        </a>
+    </body>
+</html>

@@ -1,0 +1,15 @@
+{% extends "partiturasApp/base.html" %}
+
+{% block title %}Crear Compositor Nuevo{% endblock title %}
+
+{% block content %}
+    <h2>
+        Crear Nuevo Compositor
+    </h2>
+    <form method='POST'>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type='submit'>Guardar Compositor</button>
+    </form>
+
+{% endblock content %}

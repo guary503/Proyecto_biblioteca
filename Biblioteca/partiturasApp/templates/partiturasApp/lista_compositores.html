@@ -1,0 +1,13 @@
+{% extends "partiturasApp/base.html" %}
+
+{% block title %}{{compositor.nombre}}{% endblock title %}
+{% block content %}
+    <h2>Lista de Compositores</h2>
+    <hr>
+    <ul>
+        {% for comp in compositores %}
+            <li><a href='{% url "detalle_compositor" comp.pk %}'>
+                {{ comp.nombre }} {{ comp.apellido }}</li></a>
+        {% endfor %}
+    </ul></hr>
+{% endblock content %}

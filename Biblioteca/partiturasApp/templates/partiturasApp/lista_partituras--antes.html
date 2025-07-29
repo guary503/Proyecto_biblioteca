@@ -1,0 +1,28 @@
+<!Doctype html>
+<html>
+    <head>
+        <title>Listado de Partituras </title> 
+    </head>
+    <body>
+        <h1>Mi biblioteca de Partituras</h1>
+        {# Uso un if para entrar en un ul, si es true, se ejecuta un for, en partituras que viene de contexto en views.py, luego muestro las variables, y dentro uso un if, para asignar un valor predeterminado si no existe un genero en la partitura. finalizo con un else por si no hay partituras. #} 
+        {% if partituras %}
+            <ul>
+                {% for p in partituras %}   {# modifique del dia 7, agregue la etiqueta "a" para crear un enlace a cada detalle de partitura segun su pk #}
+                    <li>
+                        <a href='{% url "detalle_partitura" p.pk %}'>
+                            {{ p.titulo}} </a> - {{p.compositor.nombre}} {{p.compositor.apellido}}
+                        {% if p.genero %} 
+                            - {{ p.genero }}
+                        {%else%} 
+                            - Sin genero
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %} {}
+            <p>Aun no hay partituras en la biblioteca</p>
+        {% endif %}
+    </body>
+</html>
+

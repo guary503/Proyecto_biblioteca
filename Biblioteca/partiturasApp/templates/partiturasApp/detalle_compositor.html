@@ -1,0 +1,24 @@
+{% extends "partiturasApp/base.html" %}
+
+{% block title %}{{ compositor.nombre }} {{ compositor.apellido }}{% endblock title %}
+
+{% block content %}
+    <h2>Detalles del compositor {{ compositor.apellido }}</h2>
+    <hr>
+    <p><strong>Fecha de nacimiento</p></strong>
+    <p>{{ compositor.fecha_de_nacimiento }}</p>
+    
+    <p><strong>Pais de Origen</strong></p>
+    <p>{{ compositor.pais }}</p>
+    
+    <hr>
+    <h3>Partituras Creadas.</h3>
+    <ul>
+        {% for p in compositor.partituras.all %}
+            <li><a href='{% url "detalle_partitura" p.pk %}'>{{ p.titulo }}</a></li>
+        {%empty%}
+            <li>No existen partituras creadas por este compositor</li>
+        {% endfor %}
+    </ul>
+
+{% endblock content %}
