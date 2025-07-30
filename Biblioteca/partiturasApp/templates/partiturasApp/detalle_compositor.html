@@ -5,7 +5,7 @@
 {% block content %}
     <h2>Detalles del compositor {{ compositor.apellido }}</h2>
     <hr>
-    <p><strong>Fecha de nacimiento</p></strong>
+    <p><strong>Fecha de nacimiento</strong></p>
     <p>{{ compositor.fecha_de_nacimiento }}</p>
     
     <p><strong>Pais de Origen</strong></p>
@@ -20,5 +20,10 @@
             <li>No existen partituras creadas por este compositor</li>
         {% endfor %}
     </ul>
+    <p>
+        <a href='{% url "crear_partitura" %}?compositor_id={{compositor.id}}'>
+            Agregar partituras al Compositor
+        </a>    {# No es bien visto usar dentro de un a un button. #}
+    </p>
 
 {% endblock content %}

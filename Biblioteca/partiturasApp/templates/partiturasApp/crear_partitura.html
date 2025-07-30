@@ -6,7 +6,7 @@
     <h2>Añadir nueva partitura</h2>
     
     <form method='POST'>  {# Se crea un form para guardar el modelo forms creado previamente, se le asigna el method POST no se aun porque #}
-        {% csrf_token %}    {# Este  es mega importante porque es la seguridad de Django #}
+        {% csrf_token %}
         {{ form.as_p }} {# se utiliza la variable {form}, no se para que es el .as_p pero le da mejor vista  #}
         <button type='submit'>Guardar Partitura</button>    {# El typo submit no se que es pero tira un post #}
     </form>

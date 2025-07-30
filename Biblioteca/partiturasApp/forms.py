@@ -12,4 +12,4 @@ class CompositorForm(forms.ModelForm):
     
     class Meta:
         model = Compositor
-        fields = ('nombre','apellido','fecha_de_nacimiento','pais')
+        fields = '__all__'

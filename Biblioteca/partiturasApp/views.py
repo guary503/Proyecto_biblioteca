@@ -1,15 +1,17 @@
-from django.shortcuts import render, get_object_or_404  #Esto es del dia 7
+from django.shortcuts import render, get_object_or_404, redirect  #Esto es del dia 7
 from django.http import HttpResponse
 from .models import Partitura, Compositor, Instrumento, PRUEBA, Genero
 from .forms import PartituraForm, CompositorForm
 
 
 # Create your views here.
-def pagina_inicio(requests):
+def pagina_inicio(request):
     """Esta es la pagina de inicio de la seccion de partituras"""
     
-    html_respond = '<h1>Bienvenidos a la biblioteca de Partituras</h1><p>Esta es la pagina principal.</p>'
-    return HttpResponse(html_respond)
+    #html_respond = '<h1>Bienvenidos a la biblioteca de Partituras</h1><p>Esta es la pagina principal.</p>'
+    #return HttpResponse(html_respond)
+    
+    return render(request, 'PartiturasApp/base.html')
 
 
 def paginaMozart(request):
@@ -83,19 +85,40 @@ def detalle_compositor(request, pk):
     return render(request, 'partiturasApp/detalle_compositor.html',contexto)
 
 
-def crear_partitura(requests):  # dia 9 - creando un form, primero se importa desde .form la clase creada con form.ModelForm.
-    '''Mi primera views creada con un form, es de prueba'''
-    form = PartituraForm(initial={'genero':'clasico','instrumento':Instrumento.objects.get(id=3)})   #Se crea una instancia de la clase # Aca aprendi a pasar el argumento initial= que es un diccionario con valores por default, si el campo es una foreignKey debes pasar el objeto, en este caso yo paso instrumento con id=3 y funciona
+def crear_partitura(request):  
+    '''Mi primera views creada con un form, obteniendo un parametro de url con ?'''   # dia 10, se debe verificar tambien
+    if request.method == 'POST':
+        # pass
+        form = PartituraForm(request.POST)  #se crea una instancia de el form para la informacion de el POST
+        if form.is_valid():
+            form.save()
+            return redirect('lista_partituras') #me dio error por no poner un return en caso de si el form no es valido.
+        
+    else:
+        #Esto es del dia 10, verificamos que se obtenga con get del Dict de la peticion GET, si no, se asigna None por default.
+        compositor_id = request.GET.get('compositor_id', None) #Se debe tomar siempre el mismo nombre de la variable que envia en el GET el html. es muy importante.
+        
+        initial_data = {}   # aca se pre-llenaria el formulario con las sugerencias
+        
+        if compositor_id:   #si compositor_id no es None, osea obtuvo un valor, agg el id compositor
+            initial_data['compositor'] = compositor_id  #se agg el id del compositor
+            
+        form = PartituraForm(initial=initial_data)   #Se crea una instancia de la clase # Aca aprendi a pasar el argumento initial= que es un diccionario con valores por default, si el campo es una foreignKey debes pasar el d del objeto, en este caso yo paso una variable que obtengo del html con GET, que me dice que compositor es para agg una partitura a ese compositor.
 
     contexto = {'form':form}    #se crea el contexto y se renderiza la plantilla
+    print(request.POST)
+    return render(request, 'partiturasApp/crear_partitura.html',contexto)
 
-    print(requests.POST)
-    return render(requests, 'partiturasApp/crear_partitura.html',contexto)
 
 
-def crear_compositor(requests):
-    form_comp = CompositorForm()
+def crear_compositor(request):
+    if request.method == 'POST':
+        form_comp = CompositorForm(request.POST)
+        if form_comp.is_valid():
+            form_comp.save()
+            return redirect('lista_compositores')
+    else:    
+        form_comp = CompositorForm()
+    
     contexto = {'form':form_comp}
-
-    print(requests.POST)
-    return render(requests,'partiturasApp/crear_compositor.html',contexto)
+    return render(request,'partiturasApp/crear_compositor.html',contexto)
