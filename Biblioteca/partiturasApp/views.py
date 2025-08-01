@@ -122,3 +122,35 @@ def crear_compositor(request):
     
     contexto = {'form':form_comp}
     return render(request,'partiturasApp/crear_compositor.html',contexto)
+
+
+
+def actualizar_partitura(request, pk):
+    partitura = get_object_or_404(Partitura, pk=pk)
+    if request.method == 'POST':
+        form = PartituraForm(request.POST, instance=partitura)
+        if form.is_valid():
+            form.save()
+            return redirect('lista_partituras')
+    else:
+        form = PartituraForm(instance=partitura)
+    
+    context = {'form':form,'partitura':partitura}
+    return render(request, 'partiturasApp/edit_partitura.html',context)
+
+
+
+def actualizar_compositor(request, pk):
+    compositor = get_object_or_404(Compositor, pk=pk)
+    if request.method == 'POST':
+        form = CompositorForm(request.POST, instance=compositor)
+        if form.is_valid():
+            form.save()
+            return redirect('lista_compositores')
+    else:
+        form = CompositorForm(instance=compositor)
+    context = {'form':form,'compositor':compositor}
+    return render(request, 'partiturasApp/edit_compositor.html',context)
+
+
+

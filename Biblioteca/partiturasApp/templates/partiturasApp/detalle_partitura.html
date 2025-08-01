@@ -26,4 +26,6 @@
     {% if partitura.numero_opus %}
         <p><strong>Numero de Opus: </strong>{{ partitura.numero_opus }}</p>
     {% endif %}
+
+    <a href='{% url "editar_partitura" partitura.pk%}'>Editar Partitura</a>
 {% endblock content %}

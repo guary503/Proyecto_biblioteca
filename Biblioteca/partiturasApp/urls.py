@@ -13,4 +13,6 @@ urlpatterns = [
     path('generos/', views.lista_generos, name='lista_generos'),
     path('compositores/<int:pk>', views.detalle_compositor, name='detalle_compositor'),
     path('<int:pk>/', views.detalle_partitura, name='detalle_partitura'),
+    path('partitura/edit/<int:pk>', views.actualizar_partitura, name='editar_partitura'),
+    path('compositor/edit/<int:pk>', views.actualizar_compositor, name='editar_compositor'),
 ]

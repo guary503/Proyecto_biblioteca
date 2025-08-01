@@ -1,0 +1,14 @@
+{% extends "partiturasApp/base.html" %}
+
+{% block title %}Editando Partitura{% endblock title %}
+
+{% block content  %}
+
+    <h1>Actualizar Partitura</h1>
+    <form method='POST'>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type='submit'>Actualizar Partitura</button>
+    </form>
+
+{% endblock   %}

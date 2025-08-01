@@ -23,7 +23,9 @@
     <p>
         <a href='{% url "crear_partitura" %}?compositor_id={{compositor.id}}'>
             Agregar partituras al Compositor
-        </a>    {# No es bien visto usar dentro de un a un button. #}
+        </a>    {# No es bien visto usar dentro de un 'a' un button. #}
     </p>
-
+    <p>
+        <a href='{% url "editar_compositor" compositor.pk %}'>editar compositor</a>
+    </p>
 {% endblock content %}
