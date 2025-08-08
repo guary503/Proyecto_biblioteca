@@ -36,8 +36,8 @@ class CompositorAdmin(admin.ModelAdmin):
 admin.site.register(Compositor, CompositorAdmin)    # aca se registra en la web, se usa la clase original y la nuevaClase que la modifica.
 
 class PartituraAdmin(admin.ModelAdmin):
-    list_display = ('titulo', 'compositor', 'genero', 'instrumento')
-    search_fields = ('titulo', 'genero','compositor__apellido') #se puede usar __propiedad para buscar en este caso en el apellido de compositor, la foreignkey
+    list_display = ('nombre', 'compositor', 'genero', 'instrumento')
+    search_fields = ('nombre', 'genero','compositor__apellido') #se puede usar __propiedad para buscar en este caso en el apellido de compositor, la foreignkey
     list_filter = ('compositor','instrumento','genero')
     fieldsets = [('Informacion Principal',{'fields':['titulo','compositor','genero','instrumento']}),
                  ('Detalles de Publicacion',{'fields': ['fecha_creacion_partitura','editorial','fecha_publicacion','numero_opus','fecha_ingreso'],'classes':['collapse']})]

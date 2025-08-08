@@ -15,7 +15,7 @@
     <h3>Partituras Creadas.</h3>
     <ul>
         {% for p in compositor.partituras.all %}
-            <li><a href='{% url "detalle_partitura" p.pk %}'>{{ p.titulo }}</a></li>
+            <li><a href='{% url "detalle_partitura" p.pk %}'>{{ p.nombre }}</a></li>
         {%empty%}
             <li>No existen partituras creadas por este compositor</li>
         {% endfor %}
@@ -25,7 +25,11 @@
             Agregar partituras al Compositor
         </a>    {# No es bien visto usar dentro de un 'a' un button. #}
     </p>
+    <hr>
     <p>
-        <a href='{% url "editar_compositor" compositor.pk %}'>editar compositor</a>
-    </p> {% comment "probando git" %}{% endcomment %}
+        <a href='{% url "editar_compositor" compositor.pk %}'>Editar compositor</a>
+    </p> 
+    <p>
+        <a href='{% url "borrar_objeto" tipo_objeto="compositor" pk=compositor.pk %}'>Borrar Compositor</a>
+    </p>
 {% endblock content %}

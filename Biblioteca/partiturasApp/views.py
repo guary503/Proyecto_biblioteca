@@ -38,13 +38,13 @@ def lista_partituras(request):
     '''Mi primer funcion con render, usando templates y contexto'''
     
     #Obtener los datos de los objetos en la BD de la clase Partituras.
-    partituras = Partitura.objects.all().order_by('titulo')
+    partituras = Partitura.objects.all()
     
     #creando el contexto, que es un diccionario con la key para llamar en la template y el value que es el valor obtenido
     contexto = {'partituras':partituras}
 
     #renderizar la plantilla con el contexto, toma 3 argumentos, el request, el str de el path de la template, y opcional el contexto
-    return render(request, 'partiturasApp/lista_partituras.html', contexto)
+    return render(request, 'partiturasApp/partitura/lista_partituras.html', contexto)
 
 
 def lista_compositores(request):
@@ -54,7 +54,7 @@ def lista_compositores(request):
     #creando el contexto
     contexto = {'compositores':compositores}
     #retornando el render
-    return render(request,'partiturasApp/lista_compositores.html',contexto) 
+    return render(request,'partiturasApp/compositor/lista_compositores.html',contexto) 
 
 
 # dia 5 - reto - creando la view con render para servirla en urls.py
@@ -64,7 +64,7 @@ def lista_generos(request):  #crear o definir funcion
     #crear contexto
     contexto = {'generos':generos}
     #renderizar web con render y los argumentos
-    return render(request, 'partiturasApp/lista_generos.html',contexto)
+    return render(request, 'partiturasApp/partitura/lista_generos.html',contexto)
 
 
 def detalle_partitura(request, pk):
@@ -75,20 +75,19 @@ def detalle_partitura(request, pk):
     
     #luego se crea el contexto normalmente
     contexto = {'partitura':partituras}
-    return render(request, 'partiturasApp/detalle_partitura.html', contexto)
+    return render(request, 'partiturasApp/partitura/detalle_partitura.html', contexto)
 
 
 def detalle_compositor(request, pk):
     '''mi funcion de view para mostrar los detalles de el compositor, sin ayuda'''
     compositor = get_object_or_404(Compositor, pk = pk)
     contexto = {'compositor':compositor}
-    return render(request, 'partiturasApp/detalle_compositor.html',contexto)
+    return render(request, 'partiturasApp/compositor/detalle_compositor.html',contexto)
 
 
 def crear_partitura(request):  
     '''Mi primera views creada con un form, obteniendo un parametro de url con ?'''   # dia 10, se debe verificar tambien
     if request.method == 'POST':
-        # pass
         form = PartituraForm(request.POST)  #se crea una instancia de el form para la informacion de el POST
         if form.is_valid():
             form.save()
@@ -103,11 +102,11 @@ def crear_partitura(request):
         if compositor_id:   #si compositor_id no es None, osea obtuvo un valor, agg el id compositor
             initial_data['compositor'] = compositor_id  #se agg el id del compositor
             
-        form = PartituraForm(initial=initial_data)   #Se crea una instancia de la clase # Aca aprendi a pasar el argumento initial= que es un diccionario con valores por default, si el campo es una foreignKey debes pasar el d del objeto, en este caso yo paso una variable que obtengo del html con GET, que me dice que compositor es para agg una partitura a ese compositor.
+        form = PartituraForm(initial=initial_data)   #Se crea una instancia de la clase # Aca aprendi a pasar el argumento initial= que es un diccionario con valores por default, si el campo es una foreignKey debes pasar el id del objeto, en este caso yo paso una variable que obtengo del html con GET, que me dice que compositor es para agg una partitura a ese compositor.
 
     contexto = {'form':form}    #se crea el contexto y se renderiza la plantilla
     print(request.POST)
-    return render(request, 'partiturasApp/crear_partitura.html',contexto)
+    return render(request, 'partiturasApp/partitura/crear_partitura.html',contexto)
 
 
 
@@ -121,22 +120,22 @@ def crear_compositor(request):
         form_comp = CompositorForm()
     
     contexto = {'form':form_comp}
-    return render(request,'partiturasApp/crear_compositor.html',contexto)
+    return render(request,'partiturasApp/compositor/crear_compositor.html',contexto)
 
 
 
 def actualizar_partitura(request, pk):
-    partitura = get_object_or_404(Partitura, pk=pk)
-    if request.method == 'POST':
-        form = PartituraForm(request.POST, instance=partitura)
-        if form.is_valid():
-            form.save()
-            return redirect('lista_partituras')
+    partitura = get_object_or_404(Partitura, pk=pk) #se obtiene la partitura a actualizar
+    if request.method == 'POST':    #si envia el formulario se actualizara si no es un get y solo se muestra.
+        form = PartituraForm(request.POST, instance=partitura)  #se crea un form con el post, y con la instance que en este caso es el objeto a actualizar
+        if form.is_valid(): #validacion
+            form.save() #guardado
+            return redirect('detalle_partitura', pk=partitura.pk)
     else:
-        form = PartituraForm(instance=partitura)
+        form = PartituraForm(instance=partitura)    #si solo es un get, usamos el objeto para la instance y que se pre llene con lo que ya tiene de informacion el objeto
     
     context = {'form':form,'partitura':partitura}
-    return render(request, 'partiturasApp/edit_partitura.html',context)
+    return render(request, 'partiturasApp/partitura/edit_partitura.html',context)
 
 
 
@@ -146,11 +145,32 @@ def actualizar_compositor(request, pk):
         form = CompositorForm(request.POST, instance=compositor)
         if form.is_valid():
             form.save()
-            return redirect('lista_compositores')
+            return redirect('detalle_compositor', pk=compositor.pk)
     else:
         form = CompositorForm(instance=compositor)
     context = {'form':form,'compositor':compositor}
-    return render(request, 'partiturasApp/edit_compositor.html',context)
+    return render(request, 'partiturasApp/compositor/edit_compositor.html',context)
 
 
-
+def borrar_objeto(request, pk, tipo_objeto):
+    object = None
+    template = 'partiturasApp/borrar.html'
+    
+    if tipo_objeto == 'partitura':
+        object = get_object_or_404(Partitura, pk=pk)
+        redirect_url = 'lista_partituras'
+    elif tipo_objeto == 'compositor':
+        object = get_object_or_404(Compositor, pk=pk)
+        redirect_url = 'lista_compositores'
+    else:
+        return HttpResponse('<h1>Hubo un fallo</h1>')
+    
+    if request.method == 'POST':
+        object.delete()
+        return redirect(redirect_url)
+    else:
+        context = {'objeto':object,'tipo_objeto':tipo_objeto}
+        return render(request, template, context)
+            
+            
+    

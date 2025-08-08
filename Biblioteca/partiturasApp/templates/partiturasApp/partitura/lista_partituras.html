@@ -8,7 +8,7 @@
     <ul>
         {% for p in partituras %}
             <li>
-                <a href='{% url "detalle_partitura" p.pk %}'>{{ p.titulo }}</a>
+                <a href='{% url "detalle_partitura" p.pk %}'>{{ p.nombre }}</a>
             </li>
         {%empty%}
             <li>No hay partituras en la biblioteca/</li>

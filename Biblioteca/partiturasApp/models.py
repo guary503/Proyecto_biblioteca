@@ -22,7 +22,7 @@ class Instrumento(models.Model):
     
     
 class Partitura(models.Model):
-    titulo = models.CharField(max_length=200)
+    nombre = models.CharField(max_length=200)
     compositor = models.ForeignKey(Compositor, on_delete=models.CASCADE, related_name='partituras')
     genero = models.CharField(max_length=50, null=True, blank=True)
     instrumento = models.ForeignKey(Instrumento, on_delete=models.PROTECT, related_name='instrumentos')
@@ -34,7 +34,7 @@ class Partitura(models.Model):
     fecha_ingreso = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f'{self.titulo} - {self.genero}'
+        return f'{self.nombre} - {self.genero}'
     
 
 "RETO DE GEMINI DE ALL DIAS HASTA EL 6"

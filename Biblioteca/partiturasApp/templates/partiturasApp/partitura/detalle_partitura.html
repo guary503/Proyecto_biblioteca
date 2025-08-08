@@ -1,9 +1,9 @@
 {% extends "partiturasApp/base.html" %}
 
-{% block title %}{{ partitura.titulo }}{% endblock title %}
+{% block title %}{{ partitura.nombre }}{% endblock title %}
 
 {% block content %}
-    <h2>Detalles de la partitura {{ partitura.titulo }}</h2>
+    <h2>Detalles de la partitura {{ partitura.nombre }}</h2>
 
     <p><strong>Compositor: </strong><a href='{% url "detalle_compositor" partitura.compositor.pk %}'>{{ partitura.compositor }}</a></p>
     <p><strong>Genero: </strong>
@@ -26,6 +26,10 @@
     {% if partitura.numero_opus %}
         <p><strong>Numero de Opus: </strong>{{ partitura.numero_opus }}</p>
     {% endif %}
-
-    <a href='{% url "editar_partitura" partitura.pk%}'>Editar Partitura</a>
+    <p>
+        <a href='{% url "editar_partitura" partitura.pk%}'>Editar Partitura</a>
+    </p>
+    <p>
+        <a href='{% url "borrar_objeto" tipo_objeto="partitura" pk=partitura.pk %}'>Borrar Compositor</a>
+    </p>
 {% endblock content %}
