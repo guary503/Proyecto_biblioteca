@@ -30,6 +30,6 @@
         <a href='{% url "editar_partitura" partitura.pk%}'>Editar Partitura</a>
     </p>
     <p>
-        <a href='{% url "borrar_objeto" tipo_objeto="partitura" pk=partitura.pk %}'>Borrar Compositor</a>
+        <a class='delete-link' href='{% url "borrar_partitura" partitura.pk %}'>Borrar Partitura</a>
     </p>
 {% endblock content %}

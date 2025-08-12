@@ -1,6 +1,11 @@
 from django.db import models
-
+from django.core.validators import MinValueValidator, MaxValueValidator #Estas clases son para validar un rango en algun IntegerField u otro.
 # Create your models here.
+
+
+
+
+
 class Compositor(models.Model):
     nombre = models.CharField(max_length=100)
     apellido = models.CharField(max_length=100)
@@ -15,7 +20,7 @@ class Compositor(models.Model):
 class Instrumento(models.Model):
     nombre = models.CharField(max_length=50)
     familia = models.CharField(max_length=50)
-    
+    models.IntegerField(max_length=5)
     
     def __str__(self):
         return f'{self.nombre}'
@@ -60,4 +65,6 @@ class Genero(models.Model):
 class PRUEBA(models.Model):   #modelo de prueba para crear un template
     titulo = models.CharField(max_length=50)
     compositor = models.ForeignKey(Compositor, related_name='compositor', null=True, on_delete=models.CASCADE)
-    
+    puntuacion = models.IntegerField(
+        validators=[MinValueValidator(1),MaxValueValidator(5)]  #se declara validators como atributo y espera una lista de los validadores.
+        )

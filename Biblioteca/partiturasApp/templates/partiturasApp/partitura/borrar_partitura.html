@@ -1,0 +1,14 @@
+{% extends "partiturasApp/base.html" %}
+
+{% block title %}Borrando Partitura: {{ partitura.nombre }}{% endblock title %}
+
+{% block content %}
+    <h1>Confirmar eliminacion:</h1>
+    <h3>Estás seguro que quieres borrar la partitura: {{ partitura.nombre }}</h3>
+
+    <form method='POST'>
+        {% csrf_token %}
+        <button type='submit'>Eliminar</button>
+        <a href= '{% url "detalle_partitura" partitura.pk%}'>Cancelar</a>
+    </form>
+{% endblock content %}

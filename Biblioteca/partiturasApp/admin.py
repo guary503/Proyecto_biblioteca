@@ -39,7 +39,7 @@ class PartituraAdmin(admin.ModelAdmin):
     list_display = ('nombre', 'compositor', 'genero', 'instrumento')
     search_fields = ('nombre', 'genero','compositor__apellido') #se puede usar __propiedad para buscar en este caso en el apellido de compositor, la foreignkey
     list_filter = ('compositor','instrumento','genero')
-    fieldsets = [('Informacion Principal',{'fields':['titulo','compositor','genero','instrumento']}),
+    fieldsets = [('Informacion Principal',{'fields':['nombre','compositor','genero','instrumento']}),
                  ('Detalles de Publicacion',{'fields': ['fecha_creacion_partitura','editorial','fecha_publicacion','numero_opus','fecha_ingreso'],'classes':['collapse']})]
 
     readonly_fields = ('fecha_ingreso',)    #Esta propiedad hace que no se pueda editar.
@@ -66,4 +66,16 @@ class GeneroAdmin(admin.ModelAdmin):
     list_filter = ('epoca_principal',)
     
 admin.site.register(Genero, GeneroAdmin)
-    
+
+
+
+
+
+
+
+
+
+
+
+
+

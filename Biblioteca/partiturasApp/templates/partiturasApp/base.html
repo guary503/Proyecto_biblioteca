@@ -1,30 +1,34 @@
+{% load static %}   {# SIEMPRE debe ir al inicio, solo despues de extends #}
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Mi biblioteca de Partituras.{% endblock title %}</title>
+        <link href='{% static "partiturasApp/style.css" %}' rel='stylesheet'>
     </head>
     <body>
         <header>
-            <h1>
+            <div class='container'>
+                <h1 id='titulo-nav'>
                 Mi biblioteca Digital.
-            </h1>
-            <nav>
-                <ul>
-                    <li><a href='{% url "lista_partituras" %}'>Lista de Partituras</a></li>
-                    <li><a href='{% url "lista_compositores" %}'>Lista de Compositores</a></li>
-                    <li><a href='{% url "crear_partitura" %}'>Crear Partitura</a></li>
-                    <li><a href='{% url "crear_compositor" %}'>Nuevo Compositor</a></li>
-                </ul>
-            </nav>
+                </h1>
+                <nav>
+                    <ul>
+                        <li><a href='{% url "lista_partituras" %}'>Lista de Partituras</a></li>
+                        <li><a href='{% url "lista_compositores" %}'>Lista de Compositores</a></li>
+                        <li><a href='{% url "crear_partitura" %}'>Crear Partitura</a></li>
+                        <li><a href='{% url "crear_compositor" %}'>Nuevo Compositor</a></li>
+                    </ul>
+                </nav>
+            </div>
         </header>
-        
-        <main>
-            {% block content %}
-            <h2>Pagina inicial</h2>
-            {% endblock content %}
-        </main>
-
+        <div class='container'>
+            <main>
+                {% block content %}
+                <h2>Pagina inicial</h2>
+                {% endblock content %}
+            </main>
+        </div>
         <footer>
             <hr>
             <p>&copy; 2025 - Mi Proyecto de Partituras</p>
