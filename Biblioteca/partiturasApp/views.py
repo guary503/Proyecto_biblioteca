@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect  #Esto es del dia 7
 from django.http import HttpResponse
-from .models import Partitura, Compositor, Instrumento, PRUEBA, Genero
+from .models import Partitura, Compositor, Instrumento,  Genero #PRUEBA
 from .forms import PartituraForm, CompositorForm
 #DIA 13 - CBV
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView

@@ -16,6 +16,8 @@ class Compositor(models.Model):
     def __str__(self):
         return f'{self.nombre} {self.apellido}'
 
+    def fecha_de_nacimiento_formateada(self):
+        return self.fecha_de_nacimiento.strftime('%m/%d/%Y') if self.fecha_de_nacimiento else None
 
 class Instrumento(models.Model):
     nombre = models.CharField(max_length=50)
@@ -62,9 +64,9 @@ class Genero(models.Model):
 
 
 
-class PRUEBA(models.Model):   #modelo de prueba para crear un template
-    titulo = models.CharField(max_length=50)
-    compositor = models.ForeignKey(Compositor, related_name='compositor', null=True, on_delete=models.CASCADE)
-    puntuacion = models.IntegerField(
-        validators=[MinValueValidator(1),MaxValueValidator(5)]  #se declara validators como atributo y espera una lista de los validadores.
-        )
+# class PRUEBA(models.Model):   #modelo de prueba para crear un template
+#     titulo = models.CharField(max_length=50)
+#     compositor = models.ForeignKey(Compositor, related_name='compositor', null=True, on_delete=models.CASCADE)
+#     puntuacion = models.IntegerField(
+#         validators=[MinValueValidator(1),MaxValueValidator(5)],  #se declara validators como atributo y espera una lista de los validadores.
+#         null=True,blank=True)

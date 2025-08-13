@@ -1,5 +1,5 @@
 from django import forms
-from .models import Partitura, PRUEBA, Compositor, Genero
+from .models import Partitura, Compositor, Genero #PRUEBA
 
 class PartituraForm(forms.ModelForm):
     

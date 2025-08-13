@@ -12,7 +12,7 @@ from .models import Partitura, Compositor, Instrumento, Genero
 
 #Personalizando para mostrar diferentes categorias segun las propiedades de la clase.
 class CompositorAdmin(admin.ModelAdmin):
-    list_display = ('apellido', 'nombre', 'pais', 'fecha_de_nacimiento','numero_partituras')    #es una tupla que se usa para mostrar columnas de las propiedades en el objeto.
+    list_display = ('apellido', 'nombre', 'pais', 'fecha_de_nacimiento_formateada','numero_partituras')    #es una tupla que se usa para mostrar columnas de las propiedades en el objeto.
 
     list_filter = ('pais',)     #se usa para crear un orderby, es efectivo en propiedad que se comparten no en nombres o apellidos, crea filtros a la derecha.po
     
@@ -23,9 +23,6 @@ class CompositorAdmin(admin.ModelAdmin):
                  ]  #mas complicado, pero modifica el panel de creacion y modificacion de la web admin. su sintaxis es
                     #una lista [('nombreDeApartado', {'fields':['listaDeElementosaRecibir']}), etc] - se abre lista y una tupla con la informacion contenida, fields son los campos.
                     #'classes':['collapse'] hace que el grupo aparezca contraido por defecto, para informacion secundaria o no necesaria
-    
-      
-
     
     #Esta funcion devuelve el numero de partituras que tiene la clase Compositor, usa la propiedad related_name en foreignkey
     def numero_partituras(self,obj):    #obtiene un obj que es de la misma clase

@@ -74,12 +74,26 @@ WSGI_APPLICATION = "Biblioteca.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+# DATABASES = {   #Dia 16, conectando Postgrest a Django, se instala psycopg2-binary en el entorno y se cambian los parametros.
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
+DATABASES = {    #Recibe un diccionario, con valores default - Me equivoque y omiti la ultima 's' por eso me daba error
+    "default":{ #default es el primer parametro que recibe un diccionario con los valores por defecto.
+        "ENGINE":"django.db.backends.postgresql",
+        'NAME': 'biblioteca.db',    #nombre que se le dio a la db - tenia error porque ponia '_' cuando era con un '.'.
+        'USER':'postgres',  #este es el nombre de supersu por defecto de postgres - Me estoy equivocando en el nombre no es con 't' al final.
+        'PASSWORD':'Osalasi123',    #se coloca la contraseña que se creo de postgres.
+        'HOST':'localhost', #es para usar 127.0.0.1 que es el local.
+        'PORT':'',  #si se deja en blanco usa el puerto por defecto 4532
+        # 'OPTIONS': {
+        #     'client_encoding':'UTF-8',
+        # }
     }
 }
+
 
 
 # Password validation

@@ -62,6 +62,13 @@ button:hover {
     font-weight: bold;
 }
 
+.delete-link:hover{
+    margin: 10px auto;
+    color: red;
+    font-weight: bold;
+    border: red solid 2px;
+}
+
 input, select {
     width: 30%;
     padding: 5px;
